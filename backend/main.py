@@ -30,8 +30,8 @@ from filler import fill_form
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-UPLOAD_DIR = Path("/data/uploads")
-OUTPUT_DIR = Path("/data/outputs")
+UPLOAD_DIR = Path(os.environ.get("DATA_DIR", "/tmp/formfiller")) / "uploads"
+OUTPUT_DIR = Path(os.environ.get("DATA_DIR", "/tmp/formfiller")) / "outputs"
 STATIC_DIR = Path("/app/static")
 
 
