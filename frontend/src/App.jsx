@@ -322,12 +322,12 @@ export default function App() {
     try {
       const res = await fetch(`${API}/extract`, { method: 'POST', body: formData })
       if (!res.ok) {
-        let errMsg = 'Fill failed'
+        let errMsg = 'Extraction failed'
         try {
           const err = await res.json()
           errMsg = err.detail || errMsg
         } catch {
-          errMsg = await res.text().catch(() => errMsg)
+          try { errMsg = await res.text() } catch {}
         }
         throw new Error(errMsg)
       }
@@ -385,15 +385,16 @@ export default function App() {
     try {
       const res = await fetch(`${API}/fill`, { method: 'POST', body: formData })
       if (!res.ok) {
-        let errMsg = 'Extraction failed'
+        let errMsg = 'Fill failed'
         try {
           const err = await res.json()
           errMsg = err.detail || errMsg
         } catch {
-          errMsg = await res.text().catch(() => errMsg)
+          try { errMsg = await res.text() } catch {}
         }
         throw new Error(errMsg)
       }
+
       // Trigger download
       const blob = await res.blob()
       const contentDisp = res.headers.get('Content-Disposition') || ''
