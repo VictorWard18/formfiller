@@ -190,7 +190,7 @@ def extract_single_pdf(pdf_bytes: bytes, language: str = "ru") -> dict:
     prompt = EXTRACTION_PROMPT_RU if language == "ru" else EXTRACTION_PROMPT_EN
 
     response = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="claude-sonnet-4-6",
         max_tokens=8192,
         messages=[
             {
@@ -236,7 +236,7 @@ def merge_extractions(extractions: list[dict], language: str = "ru") -> dict:
     )
 
     response = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="claude-sonnet-4-6",
         max_tokens=8192,
         messages=[{"role": "user", "content": prompt}],
     )
