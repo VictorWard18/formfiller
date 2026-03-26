@@ -9,7 +9,7 @@ import os
 from datetime import datetime
 from typing import Optional
 
-DB_PATH = os.environ.get("DB_PATH", "/data/formfiller.db")
+DB_PATH = os.environ.get("DB_PATH", "/tmp/formfiller/formfiller.db")
 
 
 def get_db() -> sqlite3.Connection:
