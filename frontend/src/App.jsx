@@ -385,10 +385,15 @@ export default function App() {
     try {
       const res = await fetch(`${API}/fill`, { method: 'POST', body: formData })
       if (!res.ok) {
-        const err = await res.json()
-        throw new Error(err.detail || 'Fill failed')
+        let errMsg = 'Extraction failed'
+        try {
+          const err = await res.json()
+          errMsg = err.detail || errMsg
+        } catch {
+          errMsg = await res.text().catch(() => errMsg)
+        }
+        throw new Error(errMsg)
       }
-
       // Trigger download
       const blob = await res.blob()
       const contentDisp = res.headers.get('Content-Disposition') || ''
